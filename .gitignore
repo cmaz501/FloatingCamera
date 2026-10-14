@@ -1,0 +1,23 @@
+# 构建产物
+bin/
+obj/
+*.user
+*.suo
+.vs/
+
+# Python 缓存
+__pycache__/
+*.pyc
+
+# 本地工具（便携版 git / gh），不纳入仓库
+.tools/
+
+# 开发过程产生的临时/诊断文件（不属于仓库内容）
+_*.ps1
+pw_*.png
+shot*.png
+shape_*.png
+crop_*.png
+icon_preview.png
+dist/shots/
+*.log

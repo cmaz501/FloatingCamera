@@ -1,0 +1,105 @@
+<Window x:Class="FloatingCamera.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:loc="clr-namespace:FloatingCamera"
+        Title="{Binding [SettingsTitle], Source={x:Static loc:Loc.I}}"
+        Width="384" Height="750"
+        ResizeMode="CanMinimize"
+        Background="{StaticResource PanelBackgroundBrush}"
+        WindowStartupLocation="CenterScreen"
+        SnapsToDevicePixels="True" UseLayoutRounding="True"
+        FontFamily="Segoe UI Variable Text, Microsoft YaHei UI, Segoe UI">
+
+    <Grid Background="{StaticResource PanelBackgroundBrush}">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Focusable="False">
+            <StackPanel Margin="20,18,20,24">
+
+                <!-- 开启 -->
+                <TextBlock Style="{StaticResource SectionHeader}"
+                           Text="{Binding [Enable], Source={x:Static loc:Loc.I}}"/>
+                <ToggleButton Style="{StaticResource FluentToggleSwitch}"
+                              HorizontalAlignment="Left"
+                              IsChecked="{Binding Enabled, Mode=TwoWay}"/>
+
+                <!-- 新建相机窗口 -->
+                <Button Style="{StaticResource FluentButton}"
+                        Margin="0,16,0,10"
+                        Content="{Binding [NewWindow], Source={x:Static loc:Loc.I}}"
+                        Click="OnNewWindowClick"/>
+
+                <!-- 摄像头设备 -->
+                <ComboBox Style="{StaticResource FluentComboBox}"
+                          Margin="0,0,0,18"
+                          Tag="{Binding [Device], Source={x:Static loc:Loc.I}}"
+                          ItemsSource="{Binding DeviceOptions, RelativeSource={RelativeSource AncestorType=Window}}"
+                          SelectedIndex="{Binding DeviceIndex, Mode=TwoWay}"/>
+
+                <!-- 镜像展示 -->
+                <TextBlock Style="{StaticResource SectionHeader}"
+                           Text="{Binding [Mirror], Source={x:Static loc:Loc.I}}"/>
+                <ToggleButton Style="{StaticResource FluentToggleSwitch}"
+                              HorizontalAlignment="Left"
+                              IsChecked="{Binding Mirror, Mode=TwoWay}"/>
+
+                <!-- 画面形状 -->
+                <ComboBox Style="{StaticResource FluentComboBox}"
+                          Margin="0,16,0,10"
+                          Tag="{Binding [Shape], Source={x:Static loc:Loc.I}}"
+                          ItemsSource="{Binding ShapeOptions, RelativeSource={RelativeSource AncestorType=Window}}"
+                          SelectedIndex="{Binding ShapeIndex, Mode=TwoWay}"/>
+
+                <!-- 显示比例（圆形时禁用） -->
+                <ComboBox Style="{StaticResource FluentComboBox}"
+                          Margin="0,0,0,18"
+                          Tag="{Binding [Ratio], Source={x:Static loc:Loc.I}}"
+                          IsEnabled="{Binding RatioEnabled}"
+                          ItemsSource="{Binding RatioOptions, RelativeSource={RelativeSource AncestorType=Window}}"
+                          SelectedIndex="{Binding RatioIndex, Mode=TwoWay}"/>
+
+                <!-- 画面大小 -->
+                <Grid Margin="0,0,0,10">
+                    <TextBlock Style="{StaticResource SectionHeader}" Margin="2,0,0,0"
+                               HorizontalAlignment="Left"
+                               Text="{Binding [Size], Source={x:Static loc:Loc.I}}"/>
+                    <TextBlock Style="{StaticResource ValueText}" Margin="0,0,2,0"
+                               HorizontalAlignment="Right"
+                               Text="{Binding SizeText}"/>
+                </Grid>
+                <Slider Style="{StaticResource FluentSlider}"
+                        Minimum="20" Maximum="100"
+                        Value="{Binding SizePercent, Mode=TwoWay}"/>
+
+                <Border Style="{StaticResource FluentSeparator}"/>
+
+                <!-- 始终最前 -->
+                <TextBlock Style="{StaticResource SectionHeader}"
+                           Text="{Binding [Topmost], Source={x:Static loc:Loc.I}}"/>
+                <ToggleButton Style="{StaticResource FluentToggleSwitch}"
+                              HorizontalAlignment="Left"
+                              IsChecked="{Binding AlwaysOnTop, Mode=TwoWay}"/>
+
+                <!-- 锁定位置 -->
+                <TextBlock Style="{StaticResource SectionHeader}" Margin="2,16,0,10"
+                           Text="{Binding [Lock], Source={x:Static loc:Loc.I}}"/>
+                <ToggleButton Style="{StaticResource FluentToggleSwitch}"
+                              HorizontalAlignment="Left"
+                              IsChecked="{Binding LockPosition, Mode=TwoWay}"/>
+
+                <Border Style="{StaticResource FluentSeparator}"/>
+
+                <!-- 语言 -->
+                <ComboBox Style="{StaticResource FluentComboBox}"
+                          Margin="0,0,0,10"
+                          Tag="{Binding [Language], Source={x:Static loc:Loc.I}}"
+                          ItemsSource="{Binding LanguageOptions, RelativeSource={RelativeSource AncestorType=Window}}"
+                          SelectedIndex="{Binding LanguageIndex, Mode=TwoWay}"/>
+
+                <!-- 解锁完整版 -->
+                <Button Style="{StaticResource FluentButton}"
+                        Content="{Binding [Unlock], Source={x:Static loc:Loc.I}}"
+                        Click="OnUnlockClick"/>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>

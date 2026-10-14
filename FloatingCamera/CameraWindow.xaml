@@ -1,0 +1,56 @@
+<Window x:Class="FloatingCamera.CameraWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="FloatingCamera"
+        Width="368" Height="368"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        ShowInTaskbar="False" ResizeMode="NoResize" Topmost="True"
+        WindowStartupLocation="Manual"
+        SnapsToDevicePixels="True" UseLayoutRounding="True"
+        FontFamily="Segoe UI Variable Text, Microsoft YaHei UI, Segoe UI">
+
+    <Grid x:Name="Root" Background="Transparent">
+
+        <!-- 外框：圆角方形描边，与参考软件一致 -->
+        <Border x:Name="FrameBorder"
+                CornerRadius="26" BorderThickness="1.6"
+                BorderBrush="#7AFFFFFF" Background="#14000000"
+                MouseLeftButtonDown="OnFrameMouseDown">
+
+            <Grid>
+
+                <!-- 视频区域：按「画面形状 / 显示比例」裁剪 -->
+                <Grid x:Name="VideoHost" Margin="7" ClipToBounds="True">
+                    <!-- 用 ImageBrush 填充矩形，避免 Image 以 UniformToFill 撑大自身尺寸而溢出裁剪区。 -->
+                    <Rectangle>
+                        <Rectangle.Fill>
+                            <ImageBrush x:Name="VideoBrush" Stretch="UniformToFill"
+                                        AlignmentX="Center" AlignmentY="Center"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <TextBlock x:Name="PlaceholderText"
+                               Foreground="#C8FFFFFF" FontSize="13"
+                               HorizontalAlignment="Center" VerticalAlignment="Center"
+                               TextWrapping="Wrap" TextAlignment="Center" Margin="18"/>
+                </Grid>
+
+                <!-- 悬停显示的快捷按钮 -->
+                <StackPanel x:Name="HoverBar" Orientation="Horizontal"
+                            HorizontalAlignment="Right" VerticalAlignment="Top"
+                            Margin="12" Opacity="0">
+                    <Button x:Name="BtnSettings" Style="{StaticResource OverlayIconButton}"
+                            Click="OnSettingsClick">
+                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE713;" FontSize="13"
+                                   Foreground="#FFFFFF"/>
+                    </Button>
+                    <Button x:Name="BtnClose" Style="{StaticResource OverlayIconButton}"
+                            Margin="6,0,0,0" Click="OnCloseClick">
+                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE8BB;" FontSize="12"
+                                   Foreground="#FFFFFF"/>
+                    </Button>
+                </StackPanel>
+
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
